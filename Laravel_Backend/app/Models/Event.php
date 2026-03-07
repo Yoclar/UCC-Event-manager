@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Event extends Model
 {
-    protected $fillable = ['title', 'occurrence', 'description'];
+    use HasFactory;
+
+    protected $fillable = ['user_id', 'title', 'occurrence', 'description'];
 
 
     public function user()

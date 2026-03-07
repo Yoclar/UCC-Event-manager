@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->dateTime('occurrence');
-            $table->text('desription')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

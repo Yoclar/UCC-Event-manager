@@ -34,11 +34,11 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
             $request->validate([
-            'title' => 'required|string|max:255',
-            'occurrence' => 'required|date',
-            'description' => 'nullable|string'
+            'title' => 'sometimes|string|max:255',
+            'occurrence' => 'sometimes|date',
+            'description' => 'sometimes|string'
         ]);
-        $event = Event::where('id', $id)->where('user_id', $request->user()->id)-first();
+        $event = Event::where('id', $id)->where('user_id', $request->user()->id)->first();
 
         if(!$event)
         {
