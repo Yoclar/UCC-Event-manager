@@ -20,7 +20,7 @@ class EventController extends Controller
     {
         $data = $request->validated();
         $newEvent = Event::create([
-            'user_id' => $data->user()->id,
+            'user_id' => $request->user()->id,
             'title' => $data['title'],
             'occurrence' => $data['occurrence'],
             'description' => $data['description'],
