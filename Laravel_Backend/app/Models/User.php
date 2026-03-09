@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Event;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Notifications\CustomResetPasswordNotification;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -25,6 +26,10 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPasswordNotification($token));
+    }
 
     public function events()
     {
