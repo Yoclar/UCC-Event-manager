@@ -3,11 +3,26 @@ import { createRouter, createWebHistory } from "vue-router"
 import Login from "../views/Login.vue"
 import Events from "../views/Events.vue"
 import CreateEvent from "@/views/CreateEvent.vue"
+import ForgotPassword from "@/views/ForgotPassword.vue"
+import ResetPassword from "@/views/ResetPassword.vue"
 
 const routes = [
   {
     path: "/",
     component: Login
+  },
+  {
+    path: "/forgot-password",
+    component: ForgotPassword
+  },
+  {
+     path: "/reset-password",
+    name: "reset-password",
+    component: ResetPassword,
+    props: route => ({
+      token: route.query.token,
+      email: route.query.email
+    })
   },
   {
     path: "/events",
@@ -31,10 +46,9 @@ router.beforeEach((to, from) => {
   const token = localStorage.getItem("token")
 
   if (to.meta.requiresAuth && !token) {
-    return "/" // redirect loginra
+    return "/" 
   }
 
-  // ha minden rendben → folytatás
   return true
 })
 

@@ -28,6 +28,12 @@ const login = async () => {
         error.value = e.response?.data?.message || "Login failed"
     }
 }
+
+const forgot_password = () => {
+    router.push("/forgot-password")
+}
+
+
 </script>
 
 <template>
@@ -45,7 +51,7 @@ const login = async () => {
     </div>
 
     <div class="mb-3 text-end">
-      <a href="#!" class="link-secondary">Forgot password?</a>
+          <button class="btn btn-info" @click="forgot_password">Forgot password?</button>
     </div>
 
     <button class="btn btn-primary w-100" @click="login">Login</button>
