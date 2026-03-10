@@ -5,6 +5,7 @@ import Events from "../views/Events.vue"
 import CreateEvent from "@/views/CreateEvent.vue"
 import ForgotPassword from "@/views/ForgotPassword.vue"
 import ResetPassword from "@/views/ResetPassword.vue"
+import Chat from "@/views/Chat.vue"
 
 const routes = [
   {
@@ -33,6 +34,11 @@ const routes = [
       path: "/events/create",
       component: CreateEvent,
       meta: { requiresAuth: true }
+  },
+  {
+    path:"/chat",
+    component: Chat,
+    meta: { requiresAuth: true }
   }
   
 ]

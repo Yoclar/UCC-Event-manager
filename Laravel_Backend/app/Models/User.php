@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Event;
+use App\Models\Chat;
+use App\Models\Message;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Notifications\CustomResetPasswordNotification;
@@ -34,6 +36,10 @@ class User extends Authenticatable implements JWTSubject
     public function events()
     {
         return $this->hasMany(Event::class);
+    }
+    public function chat()
+    {
+        return $this->hasMany(Chat::class);
     }
 
 

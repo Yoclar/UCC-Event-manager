@@ -39,6 +39,10 @@ const goCreate = () => {
   router.push("/events/create");
 };
 
+const help = () => {
+  router.push('/chat');
+}
+
 // Inline edit funkciók
 const startEdit = (event) => {
   editId.value = event.id;
@@ -93,7 +97,8 @@ onMounted(() => fetchEvents());
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Events</h1>
     <div>
-      <button class="btn btn-primary me-2" @click="goCreate">New Event</button>
+      <button class="btn btn-warning me-2" @click="help">Need help</button>
+      <button class="btn btn-success me-2" @click="goCreate">New Event</button>
       <button class="btn btn-secondary" @click="logout">Logout</button>
     </div>
   </div>
