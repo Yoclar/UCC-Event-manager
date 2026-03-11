@@ -19,9 +19,18 @@ const login = async () => {
 
         // token mentése
         localStorage.setItem("token", response.data.token)
+        localStorage.setItem("role", response.data.user.role)
+
 
         // redirect
-        router.push("/events")
+        if(response.data.user.role === "agent"){
+          console.log(response.data.user.role);
+          router.push("/agent-dashboard");
+        }
+        else{
+
+          router.push("/events")
+        }
 
     } catch (e) {
         // hibakezelés

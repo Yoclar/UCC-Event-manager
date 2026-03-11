@@ -32,6 +32,7 @@ const fetchEvents = async () => {
 // Logout
 const logout = () => {
   localStorage.removeItem("token");
+  localStorage.removeItem("role");
   router.push("/");
 };
 
