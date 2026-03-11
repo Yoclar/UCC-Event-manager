@@ -34,7 +34,7 @@ class ChatController extends Controller
         }
         elseif (str_contains($msg, 'agent') || str_contains($msg, 'human') || str_contains($msg, 'operator') || str_contains($msg, 'support')) {
             $chat->update(['needs_human' => true]);   
-            $reply = "Alright, I'll put you through to one of our agents.";
+            $reply = "Alright, I'll put you through to one of our agents. Please wait ...";
         }
         elseif (str_contains($msg, 'create') || str_contains($msg, 'add') || str_contains($msg, 'new')) {
             $reply = 'To create a new event, go back and click the "New Event" button.';

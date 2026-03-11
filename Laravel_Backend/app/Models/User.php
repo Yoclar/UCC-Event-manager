@@ -9,14 +9,13 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Event;
 use App\Models\Chat;
 use App\Models\Message;
-use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Notifications\CustomResetPasswordNotification;
 
 class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
     public function getJWTIdentifier()
     {
@@ -25,7 +24,9 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'role' => $this->role
+        ];
     }
 
     public function sendPasswordResetNotification($token)
@@ -51,6 +52,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name',
+        'role',
         'email',
         'password',
     ];
