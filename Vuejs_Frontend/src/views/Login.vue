@@ -3,7 +3,6 @@ import { ref } from "vue"
 import { useRouter } from "vue-router"
 import api from "../api/api"
 
-// reaktív változók
 const email = ref("")
 const password = ref("")
 const error = ref("")
@@ -17,12 +16,11 @@ const login = async () => {
             password: password.value
         })
 
-        // token mentése
         localStorage.setItem("token", response.data.token)
         localStorage.setItem("role", response.data.user.role)
 
 
-        // redirect
+
         if(response.data.user.role === "agent"){
           console.log(response.data.user.role);
           router.push("/agent-dashboard");
@@ -33,7 +31,7 @@ const login = async () => {
         }
 
     } catch (e) {
-        // hibakezelés
+
         error.value = e.response?.data?.message || "Login failed"
     }
 }

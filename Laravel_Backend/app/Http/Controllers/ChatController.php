@@ -5,9 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\Message;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
+    public function getChat(Request $request)
+    {
+        $user = auth()->user();
+        $chat = Chat::with('messages')
+        ->where('user_id', $user->id)
+        ->where('status', 'active')
+        ->first();
+
+        if(!$chat)
+        {
+            return ['messages' => []];
+        }
+
+        return [
+        'messages' => $chat->messages
+        ];
+    }
+
+
     public function chat(Request $request)
     { 
         $user = auth()->user();
@@ -22,6 +42,7 @@ class ChatController extends Controller
             'sender' => 'user',
             'text' => $request->message
         ]);
+
 
         $msg = strtolower($request->message);
         $reply = "Sorry, I don't understand. Please rephrase your question.";

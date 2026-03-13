@@ -14,34 +14,18 @@
         :key="index"
         class="mb-2"
       >
-
-        <div
-          :class="[
-            'p-2 rounded',
-            m.sender === 'user'
-              ? 'bg-primary text-white ms-auto user-msg'
-              : 'bg-light bot-msg'
-          ]"
-        >
-          {{ m.text }}
-        </div>
-
+        <strong>
+          {{ m.sender === 'user' ? 'you' : m.sender }}:
+        </strong>
+        {{ m.text }}
       </div>
 
     </div>
 
     <div class="card-footer d-flex gap-2">
-      <input
-        v-model="input"
-        @keyup.enter="sendMessage"
-        class="form-control"
-        placeholder="Type your message..."
-      />
+      <input v-model="input" @keyup.enter="sendMessage" class="form-control" placeholder="Type your message..."/>
 
-      <button
-        class="btn btn-primary"
-        @click="sendMessage"
-      >
+      <button class="btn btn-primary" @click="sendMessage">
         Send
       </button>
     </div>
@@ -52,58 +36,55 @@
 </template>
 
 <script>
-
-import api from "../api/api";
-
+import api from "../api/api"
 
 export default {
   data(){
     return {
       input:"",
-      messages:[]
+      messages:[],
+      refreshInterval: null
     }
   },
 
   methods:{
+
+    async loadChat() {
+      const res = await api.get("/chat")
+      this.messages = res.data.messages
+    },
+
     async sendMessage() {
-  if (!this.input) return
+      if (!this.input) return
 
-  this.messages.push({
-    sender: 'user',
-    text: this.input
-  })
+      const userInput = this.input
+      this.input = ""
 
-  const userInput = this.input
-  this.input = ""
+      await api.post('/chat', {
+        message: userInput
+      })
 
-  const res = await api.post('/chat', {
-    message: userInput
-  })
 
-  setTimeout(() => {
-    this.messages.push({
-      sender: 'bot',
-      text: res.data.reply
-    })
-  }, 500)
-}
+    }
+  },
+
+  async mounted() {
+    await this.loadChat()
+
+    this.refreshInterval = setInterval(() => {
+      this.loadChat()
+    }, 2000)
+  },
+
+  unmounted() {
+    clearInterval(this.refreshInterval)
   }
 }
 </script>
 
 <style>
-
 .chat-body{
   height:400px;
   overflow-y:auto;
 }
-
-.user-msg{
-  max-width:60%;
-}
-
-.bot-msg{
-  max-width:60%;
-}
-
 </style>

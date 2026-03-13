@@ -11,8 +11,17 @@ class HelpdeskController extends Controller
     {
         return Chat::with('messages', 'user')
         ->where('needs_human', true)
+        ->where('status', 'active')
         ->get();
     }
+
+    public function previousChats()
+    {
+        return Chat::with('messages', 'user')
+            ->where('status', 'closed')
+            ->get();
+    } 
+    
 
 
     public function reply(Request $request)
@@ -31,6 +40,17 @@ class HelpdeskController extends Controller
 
         $chat->update(['needs_human' => false]);
 
+        return ['status' => 'ok'];
+    }
+
+    public function closeChat(Request $request)
+    {
+        $request->validate([
+            'chat_id' => 'required|exists:chats,id'
+        ]);
+
+        $chat = Chat::find($request->chat_id);
+        $chat->update(['status' => 'closed']);
         return ['status' => 'ok'];
     }
 }

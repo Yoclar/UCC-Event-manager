@@ -21,12 +21,15 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/events', [EventController::class, 'store']);
     Route::put('/events/{id}', [EventController::class, 'update']);
     Route::delete('/events/{id}', [EventController::class, 'destroy']);
-
+    Route::get('/chat', [ChatController::class, 'getChat']);
     Route::post('/chat', [ChatController::class, 'chat']);
 
     Route::middleware('agent')->group(function() {
         Route::get('/agent-dashboard', [HelpdeskController::class, 'index']);
+        Route::get('/agent/previous-chats', [HelpdeskController::class, 'previousChats']);
         Route::post('/agent/reply', [HelpdeskController::class, 'reply']);
+        Route::post('/agent/close', [HelpdeskController::class, 'closeChat']);
+
     });
 
 });

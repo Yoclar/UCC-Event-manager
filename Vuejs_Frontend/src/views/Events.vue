@@ -5,18 +5,17 @@ import api from "../api/api";
 
 const router = useRouter();
 
-// reaktív változók
 const events = ref([]);
 const loading = ref(true);
 const error = ref("");
 
-// Inline edit állapot
+
 const editId = ref(null);
 const editTitle = ref("");
 const editDescription = ref("");
 const editOccurrence = ref("");
 
-// Fetch events
+
 const fetchEvents = async () => {
   loading.value = true;
   try {
@@ -29,7 +28,7 @@ const fetchEvents = async () => {
   }
 };
 
-// Logout
+
 const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("role");
@@ -44,7 +43,7 @@ const help = () => {
   router.push('/chat');
 }
 
-// Inline edit funkciók
+
 const startEdit = (event) => {
   editId.value = event.id;
   editTitle.value = event.title;
@@ -94,7 +93,7 @@ onMounted(() => fetchEvents());
 
 <template>
 <div class="container my-4">
-  <!-- Header -->
+
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Events</h1>
     <div>
@@ -111,7 +110,6 @@ onMounted(() => fetchEvents());
     <div v-for="event in events" :key="event.id" class="col-lg-3 col-md-4 col-sm-6">
       <div class="card h-100">
         <div class="card-body d-flex flex-column">
-          <!-- Inline edit form -->
           <div v-if="editId === event.id">
             <input class="form-control mb-2" v-model="editTitle" placeholder="Title" />
             <input type="datetime-local" class="form-control mb-2" v-model="editOccurrence" />
@@ -122,7 +120,6 @@ onMounted(() => fetchEvents());
             </div>
           </div>
 
-          <!-- Normal card view -->
           <div v-else>
             <h5 class="card-title">{{ event.title }}</h5>
             <p class="card-text">{{ new Date(event.occurrence).toLocaleString() }}</p>

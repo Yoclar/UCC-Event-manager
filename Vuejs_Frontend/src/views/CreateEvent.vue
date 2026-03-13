@@ -7,7 +7,7 @@
             <h2 class="card-title mb-4 text-center">Create Event</h2>
 
             <form @submit.prevent="submit">
-              <!-- Title -->
+
               <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input
@@ -19,7 +19,7 @@
                 />
               </div>
 
-              <!-- Description -->
+
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea
@@ -30,7 +30,6 @@
                 ></textarea>
               </div>
 
-              <!-- Date / Time -->
               <div class="mb-3">
                 <label for="occurrence" class="form-label">Date / Time</label>
                 <input
@@ -42,7 +41,7 @@
                 />
               </div>
 
-              <!-- Buttons -->
+
               <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-secondary" @click="cancel">Cancel</button>

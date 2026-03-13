@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->boolean('needs_human')->default(false);
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }
