@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
          User::factory()->create([
             'name' => 'Ricsi',
             'role' => 'agent',
-            'email' => 'langricso@gmail.com', // need to delete or modify later
+            'email' => 'harsun@eldobhato-level.hu', // need to delete or modify later
         ]);
           User::factory()->create([
             'name' => 'Test User2',
